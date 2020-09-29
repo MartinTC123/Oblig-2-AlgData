@@ -60,13 +60,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
            else if (tom()){ //om listen er tom og verdien ikke er null oppdateres foerste verdi
                Node<T> node = new Node<>(t,hode,null);
                hode = hale = node;
-               antall++;
+               antall++; //øker antall verdier som != Null
            }
            else{ // Oppdaterer halen i tabellen.
                Node<T> node = hale;
                hale = new Node<>(t, hale, null);
                hale.neste = hale;
-               antall++;
+               antall++; //øker antall verdier som != Null
            }
 
        }
