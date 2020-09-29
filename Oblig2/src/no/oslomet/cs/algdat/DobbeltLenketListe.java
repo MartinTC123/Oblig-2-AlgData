@@ -46,7 +46,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         this.antall = 0;
         this.endringer = 0;
         hode = hale = null;
-        throw new UnsupportedOperationException();
+       // throw new UnsupportedOperationException();
     }
 
     public DobbeltLenketListe(T[] a) {
@@ -60,13 +60,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
            else if (tom()){ //om listen er tom og verdien ikke er null oppdateres foerste verdi
                Node<T> node = new Node<>(t,hode,null);
                hode = hale = node;
+               antall++;
            }
            else{ // Oppdaterer halen i tabellen.
                Node<T> node = hale;
                hale = new Node<>(t, hale, null);
                hale.neste = hale;
+               antall++;
            }
-           antall++;
+
        }
        // throw new UnsupportedOperationException();
     }
