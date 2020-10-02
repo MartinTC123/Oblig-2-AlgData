@@ -43,8 +43,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     private int endringer;         // antall endringer i listen
 
     public DobbeltLenketListe() {
-        this.antall = 0;
-        this.endringer = 0;
+        antall = 0;
+        endringer = 0;
         hode = hale = null;
        // throw new UnsupportedOperationException();
     }
@@ -88,12 +88,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public boolean leggInn(T verdi) {
-        throw new UnsupportedOperationException();
+    public boolean leggInn(T verdi){
+        Objects.requireNonNull(verdi,"Verdien a er Null!");
+        Node<T> nynode = new Node(verdi);
+        antall++;
+        if(hode == null){
+            hale = nynode;
+            hode = nynode;
+            hale.forrige = null;
+            hode.neste = null;
+        }
+        else{
+            hale.neste = nynode;
+            nynode.forrige = hale;
+            hale = nynode;
+            hale.neste = null;
+        }
+        return true;
     }
 
     @Override
     public void leggInn(int indeks, T verdi) {
+
         throw new UnsupportedOperationException();
     }
 
