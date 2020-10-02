@@ -4,6 +4,7 @@ package no.oslomet.cs.algdat;
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
 
+import javax.swing.*;
 import java.util.Comparator;
 import java.util.ConcurrentModificationException;
 import java.util.NoSuchElementException;
@@ -138,11 +139,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         returner.append("[");
         Node t = new Node(hode);
 
-        while(t!=hale){
-            returner.append(t.verdi);
-            t=t.neste;}
-
-
+        while(t!=null) {
+                returner.append(t.verdi);
+                t = t.neste;
+        }
         returner.append("]");
         return returner.toString();
     }
