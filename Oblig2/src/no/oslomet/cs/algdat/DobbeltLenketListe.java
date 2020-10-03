@@ -168,13 +168,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public String toString() {
         StringBuilder returner =new StringBuilder();
+        if (tom()){ //Om arrayet er tomt, returner []
+            returner.append("[]");
+            return returner.toString();
+        }
         returner.append("[");
 
-        Node<T> t = hode;
+        Node<T> t = hode;           //Starter med aa appende verdien til hodet
         returner.append(t.verdi);
-        t=t.neste;
+        t=t.neste;                  // noden blir satt til neste
 
-        while(t!=null) {
+        while(t!=null) {            //Dersom det er flere elementer som ikke er null, fortsett
                 returner.append(",").append(t.verdi);
                 t = t.neste;
         }
