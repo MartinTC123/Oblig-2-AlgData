@@ -160,10 +160,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        // oppretter en boolean sjekk som skal enten returnere true eller false.
-        // her tenker jeg å bruke en if setning som sammenligner verdi med -1.
-        // dersom verdien != -1 så skal sjekk returnere true.
-        return true;
+        boolean sjekk; // oppretter en boolean sjekk som skal enten returnere true eller false.
+        if (indeksTil(verdi) != -1) {// her tenker jeg å bruke en if setning som sammenligner verdi med -1.
+            sjekk = true; // dersom verdien != -1 så skal sjekk returnere true.
+        }
+        else {
+            sjekk = false;
+        }
+        return sjekk;
     }
 
     @Override
@@ -180,12 +184,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        // Oppretter en instans av node (leteNode) som skal bli brukt til å lete etter verdi.
-        // bruker en for-løkke for å søke etter verdi.
-        // inne i løkken bruker jeg en if setning som skal sammeligne leteNode og verdi
-        // dersom verdiene er like returnerer jeg int i fra løkken.
-        // ellers blir -1 returnert.
-        return -1;
+        Node<T> leteNode= hode;// Oppretter en instans av node (leteNode) som skal bli brukt til å lete etter verdi.
+        for (int i = 0; i < antall; i++) { // bruker en for-løkke for å søke etter verdi.
+            if (leteNode.verdi.equals(verdi)){ // inne i løkken bruker jeg en if setning som skal sammeligne leteNode og verdi
+                return i; // dersom verdiene er like returnerer jeg int i fra løkken.
+            }
+            leteNode = leteNode.neste;
+        }
+        return -1; // ellers blir -1 returnert.
     }
 
     @Override
