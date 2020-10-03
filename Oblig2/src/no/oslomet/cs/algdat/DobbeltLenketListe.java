@@ -88,7 +88,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Liste<T> subliste(int fra, int til){
-        throw new UnsupportedOperationException();
+        // oppretter en instans liste av Dobbeltlenkeliste
+
+        // bruker en try og catch ved å kontrollere om indeksene i fra og til er lovlige.
+        // for å kontrollere indeksene skal fratilKontroll() kalles på.
+        // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
+
+        // til slutt returneres listen.
+        return null;
     }
 
     @Override
@@ -134,7 +141,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        throw new UnsupportedOperationException();
+        // oppretter en instans av T indeksVerdi;
+        // bruker en try og catch for å sjekke indeks med indeksKontroll()
+        // inne i try kaller jeg på finnNode og setter den lik indeksVerdi
+        // til slutt returneres indeksVerdi
+        return null;
     }
 
     @Override
@@ -144,7 +155,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        throw new UnsupportedOperationException();
+        // oppretter en instans av T
+        // bruker en if setning for å kontrollere at nyverdi ikke er null
+        // dersom nyverdi ikke er null så bruker jeg en try og catch for å sjekke indeks med indeksKontroll()
+        // i try oppdaterer jeg verdiene ved å sette indeksVerdi = nyverdi. Endringer økes også (endringer++).
+        // til slutt returneres indeksVerdi
+        return null;
     }
 
     @Override
