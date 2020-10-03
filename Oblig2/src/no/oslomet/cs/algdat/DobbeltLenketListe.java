@@ -139,7 +139,10 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean inneholder(T verdi) {
-        throw new UnsupportedOperationException();
+        // oppretter en boolean sjekk som skal enten returnere true eller false.
+        // her tenker jeg å bruke en if setning som sammenligner verdi med -1.
+        // dersom verdien != -1 så skal sjekk returnere true.
+        return true;
     }
 
     @Override
@@ -153,7 +156,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public int indeksTil(T verdi) {
-        throw new UnsupportedOperationException();
+        // Oppretter en instans av node (leteNode) som skal bli brukt til å lete etter verdi.
+        // bruker en for-løkke for å søke etter verdi.
+        // inne i løkken bruker jeg en if setning som skal sammeligne leteNode og verdi
+        // dersom verdiene er like returnerer jeg int i fra løkken.
+        // ellers blir -1 returnert.
+        return -1;
     }
 
     @Override
