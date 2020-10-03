@@ -74,6 +74,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
        // throw new UnsupportedOperationException();
     }
 
+    private Node<T> finnNode(int indeks){
+        // Oppretter en "current" node som skal returnere noden som er i indeks
+
+        // Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
+
+        // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
+        // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+
+        // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
+        // Inne i denne for-løkken oppdaterer jeg current ved å bruke current.forrige
+        return null;
+    }
+
     public Liste<T> subliste(int fra, int til){
         throw new UnsupportedOperationException();
     }
