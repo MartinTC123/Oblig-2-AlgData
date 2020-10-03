@@ -53,23 +53,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public DobbeltLenketListe(T[] a) {
        Objects.requireNonNull(a,"Tabellen a er Null!"); //kaster exception om tabellen er tom eller bare "Null"
        int nullverdi = 0; // initialiserer nullverditeller
+        Node <T> node=null;
+        Node <T> forrige = null;
 
        for (T t : a){ //går gjennom listen
            if(t == null){ // om verdien paa indeksen er == null oekes null verditelleren
                 nullverdi++;
            }
            else if (tom()){ //om listen er tom og verdien ikke er null oppdateres foerste verdi
-               Node<T> node = new Node<>(t,hode,null);
+               node = new Node<>(t,hode,null);
                hode = hale = node;
                antall++; //øker antall verdier som != Null
            }
            else{ // Oppdaterer halen i tabellen.
-               Node<T> node = hale;
-               hale = new Node<>(t, hale, null);
-               hale.neste = hale;
+               node = new Node<>(t, forrige, null);
                antall++; //øker antall verdier som != Null
            }
-
+           if (forrige!= null){
+               forrige.neste = node;
+           }
+           forrige=node;
        }
        // throw new UnsupportedOperationException();
     }
