@@ -67,6 +67,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
            }
            else{ // Oppdaterer halen i tabellen.
                node = new Node<>(t, forrige, null);
+               hale=node;
                antall++; //øker antall verdier som != Null
            }
            if (forrige!= null){
@@ -203,7 +204,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         t=t.neste;                  // noden blir satt til neste
 
         while(t!=null) {            //Dersom det er flere elementer som ikke er null, fortsett
-                returner.append(",").append(t.verdi);
+                returner.append(",").append(" ").append(t.verdi);
                 t = t.neste;
         }
 
@@ -212,7 +213,26 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public String omvendtString() {
-        throw new UnsupportedOperationException();
+        StringBuilder returner =new StringBuilder();
+        if (tom()){
+            returner.append("[]");
+            return returner.toString();
+        }
+
+        returner.append("[");
+
+
+        Node<T> t = hale;
+        returner.append(t.verdi);
+        t=t.forrige;
+
+        while(t!=null) {
+            returner.append(",").append(" ").append(t.verdi);
+            t = t.forrige;
+        }
+
+        returner.append("]");
+        return returner.toString();
     }
 
     @Override
