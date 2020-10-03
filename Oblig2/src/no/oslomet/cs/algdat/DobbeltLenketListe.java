@@ -67,7 +67,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
            }
            else{ // Oppdaterer halen i tabellen.
                node = new Node<>(t, forrige, null);
-               hale=node;
                antall++; //øker antall verdier som != Null
            }
            if (forrige!= null){
@@ -79,27 +78,48 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     private Node<T> finnNode(int indeks){
-        // Oppretter en "current" node som skal returnere noden som er i indeks
+        Node<T> current= new Node<>(null, null, null);// Oppretter en "current" node som skal returnere noden som er i indeks
 
-        // Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
+        if (indeks <= antall/2) {// Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
+            current = hode;
+            for (int i= 0; i < indeks; i++){ // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
+            current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+            }
+        }
+        else if(indeks > antall/2){ // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
+            current = hale;
+            for (int j= antall - 1; j > indeks; j--){ // Inne i denne for-løkken oppdaterer jeg current ved å bruke current.forrige
+                current = current.forrige;
+            }
+        }
+        return current;
+    }
 
-        // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
-        // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
-
-        // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
-        // Inne i denne for-løkken oppdaterer jeg current ved å bruke current.forrige
-        return null;
+    private static void fratilKontroll(int antall, int fra, int til){ // brukes for å kontrollere fra og til
+        if (fra < 0){
+            throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
+        }
+        if (til > antall){
+            throw new IndexOutOfBoundsException("til(" + til + ") > antall(" + antall + ")");
+        }
+        if (fra > til){
+            throw new IllegalArgumentException("fra(" + fra + ") > til(" + til + ") - illegalt intervall!");
+        }
     }
 
     public Liste<T> subliste(int fra, int til){
-        // oppretter en instans liste av Dobbeltlenkeliste
-
-        // bruker en try og catch ved å kontrollere om indeksene i fra og til er lovlige.
-        // for å kontrollere indeksene skal fratilKontroll() kalles på.
-        // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
-
-        // til slutt returneres listen.
-        return null;
+        Liste<T> liste= new DobbeltLenketListe<>(); // oppretter en instans liste av Dobbeltlenkeliste
+        Node <T> fraNode= finnNode(fra);
+        try { // bruker en try og catch ved å kontrollere om indeksene i fra og til er lovlige.
+            fratilKontroll(antall, fra, til); // for å kontrollere indeksene skal fratilKontroll() kalles på.
+            for (int i = fra; i < til; i++){ // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
+                liste.leggInn(fraNode.verdi);
+                fraNode = fraNode.neste;
+            }
+        }catch (IndexOutOfBoundsException error){
+            throw error;
+        }
+        return liste; // til slutt returneres listen.
     }
 
     @Override
@@ -148,11 +168,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T hent(int indeks) {
-        // oppretter en instans av T indeksVerdi;
-        // bruker en try og catch for å sjekke indeks med indeksKontroll()
-        // inne i try kaller jeg på finnNode og setter den lik indeksVerdi
-        // til slutt returneres indeksVerdi
-        return null;
+        T indeksVerdi; // oppretter en instans av T indeksVerdi;
+        try { // bruker en try og catch for å sjekke indeks med indeksKontroll()
+            indeksKontroll(indeks, false);
+            indeksVerdi = finnNode(indeks).verdi; // inne i try kaller jeg på finnNode og setter den lik indeksVerdi
+        }catch (IndexOutOfBoundsException error){
+            throw error;
+        }
+        return indeksVerdi; // til slutt returneres indeksVerdi
     }
 
     @Override
@@ -167,12 +190,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T oppdater(int indeks, T nyverdi) {
-        // oppretter en instans av T
-        // bruker en if setning for å kontrollere at nyverdi ikke er null
-        // dersom nyverdi ikke er null så bruker jeg en try og catch for å sjekke indeks med indeksKontroll()
-        // i try oppdaterer jeg verdiene ved å sette indeksVerdi = nyverdi. Endringer økes også (endringer++).
-        // til slutt returneres indeksVerdi
-        return null;
+        T indeksVerdi; // oppretter en instans av T
+        Node<T> node= finnNode(indeks);
+
+        if (nyverdi == null) {// bruker en if setning for å kontrollere at nyverdi ikke er null
+            throw new NullPointerException("Nullverdi er ikke tillat"); // kaster NullPointerException
+        }
+        else {
+            try { // dersom nyverdi ikke er null så bruker jeg en try og catch for å sjekke indeks med indeksKontroll()
+                indeksKontroll(indeks, false);
+                indeksVerdi = node.verdi;
+                node.verdi = nyverdi; // i try oppdaterer jeg verdiene ved å sette indeksVerdi = nyverdi.
+                endringer++; // endringer økes også (endringer++).
+            }catch (IndexOutOfBoundsException error){
+                throw error;
+            }
+        }
+        return indeksVerdi; // til slutt returneres indeksVerdi
     }
 
     @Override
@@ -204,7 +238,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         t=t.neste;                  // noden blir satt til neste
 
         while(t!=null) {            //Dersom det er flere elementer som ikke er null, fortsett
-                returner.append(",").append(" ").append(t.verdi);
+                returner.append(", ").append(t.verdi);
                 t = t.neste;
         }
 
@@ -213,26 +247,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public String omvendtString() {
-        StringBuilder returner =new StringBuilder();
-        if (tom()){
-            returner.append("[]");
-            return returner.toString();
-        }
-
-        returner.append("[");
-
-
-        Node<T> t = hale;
-        returner.append(t.verdi);
-        t=t.forrige;
-
-        while(t!=null) {
-            returner.append(",").append(" ").append(t.verdi);
-            t = t.forrige;
-        }
-
-        returner.append("]");
-        return returner.toString();
+        throw new UnsupportedOperationException();
     }
 
     @Override
