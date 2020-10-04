@@ -109,12 +109,21 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public Liste<T> subliste(int fra, int til){
         Liste<T> liste= new DobbeltLenketListe<>(); // oppretter en instans liste av Dobbeltlenkeliste
-        Node <T> franode= finnNode(fra);
+        Node<T> franode= finnNode(0);
+        int pointer= 0;
         try { // bruker en try og catch ved å kontrollere om indeksene i fra og til er lovlige.
             fratilKontroll(antall, fra, til); // for å kontrollere indeksene skal fratilKontroll() kalles på.
-            for (int i = fra; i < til; i++){ // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
-                liste.leggInn(franode.verdi);
+            for (int i = 0; i < antall; i++) { // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
+                if (fra == pointer) {
+                    while (pointer < til) { // intervall [fra:til>
+                        liste.leggInn(franode.verdi); // legger inn verdiene i sublisten
+                        franode = franode.neste; // går videre til neste node
+                        pointer++; // pointer øker til den er lik til
+                    }
+                    break; // bryter ut av while løkken
+                }
                 franode = franode.neste;
+                pointer++;
             }
         }catch (IndexOutOfBoundsException error){
             throw error;
