@@ -258,13 +258,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 nest.forrige = null;
                 hode = nest;
                 antall--;
+                endringer++;
             }
-            else if (indeks == antall -1 && antall >= 1){ // for å fjerne hale
+            else if (indeks == antall -1 && antall > 1){ // for å fjerne hale
                 indeksVerdi = hale;
                 forr = indeksVerdi.forrige;
-                indeksVerdi.neste = null;
-                hale = forr;
+                forr.neste = null;
+                hale = indeksVerdi;
                 antall--;
+                endringer++;
             }
             else { // for å fjerne andre elementer
                 forr = indeksVerdi.forrige;
@@ -272,6 +274,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 forr.neste = nest;
                 nest.forrige = forr;
                 antall--;
+                endringer++;
             }
         }catch (IndexOutOfBoundsException error){
             throw error;
