@@ -287,17 +287,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public void nullstill() {
-        if (tom()) { //dersom listen er tom skal den ikke gjøre noe
+        if (tom()) { //dersom listen er tom skal den ikke gjoere noe
             return;
         }
-        Node<T> t = hode;
-        Node<T> forrige = t;        //her er tanken aa bruke en node og en hjelpenode for å loese oppgaven
-                                    // utfordring blir aa nullstille en node og fortsatt finne dens .neste node. Dette er tenkt gjort med en while løkke
+        Node<T> p,q = hode;      // oppretter hjelpenoder for å nullstille
 
-        while (t!=null){
-
+        while(q!=null){         // loeper gjennom nodene og nullstiller
+            p=q.neste;          //setter foerst hjelpenode p til neste node
+            q.forrige=null;
+            q.verdi=null;       //nullstiller verdiene
+            q.neste=null;
+            q=p;                //setter deretter nullstilt node til neste node
         }
-
+        antall=0;           //setter til slutt antall til 0 og endringer oekes
+        endringer++;
     }
 
     @Override
@@ -328,7 +331,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         returner.append("[");
 
-        Node<T> t = hale;           //Starter med aa appende verdien til alen
+        Node<T> t = hale;           //Starter med aa appende verdien til halen
         returner.append(t.verdi);
         t=t.forrige;                  // noden blir satt til forrige
 
