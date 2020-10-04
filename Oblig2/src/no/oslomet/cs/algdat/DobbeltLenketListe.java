@@ -167,16 +167,19 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(verdi, "Ikke tillatt med Nullverdier");
         indeksKontroll(indeks,true);
 
-        if(indeks == antall){
-            hale = hale.neste = new Node<>(verdi,hale,null);
-            if (antall == 0 ){
+        if(indeks == antall){ // koden kjøres hvis indeksen er like lang som listen
+            hale = hale.neste = new Node<>(verdi,hale,null); //setter hale lik sin neste siden indeksen tar den gammle hale plassen
+            if (antall == 0 ){ //om indeksen er lik antall og antallet er 0, så settes hale = hode
                 hale = hode;
             }
         }
         else if(indeks == 0){
-            hode = new Node<>(verdi,null, hode);
+            hode = new Node<>(verdi,null, hode); //om indeksen er 0 settes det som hode.
         }else{
-            for()
+            Node<T> node = hode;
+            for(int i = 1; i <indeks; i++){
+                    node = node.neste;
+            }
         }
 
        // throw new UnsupportedOperationException();
