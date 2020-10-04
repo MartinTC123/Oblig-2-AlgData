@@ -5,7 +5,7 @@ public class Main {
 
         String [] s = {"A","B","C","D"};
         DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
-        System.out.println(liste.fjern(0));
+        System.out.println(liste.fjern(3));
         System.out.print(liste.toString());
         //System.out.print(liste.omvendtString());
 
