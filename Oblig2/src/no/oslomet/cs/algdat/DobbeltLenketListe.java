@@ -232,7 +232,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        throw new UnsupportedOperationException();
+        // oppretter en instans av Node som skal være indeks
+        // oppretter en forrige peker og en neste peker av Node
+
+        // bruker en try og catch for å kontrollere indeks
+        // i try har jeg if, else if og else for å fjerne hode, hale og andre elementer.
+
+        // returnerer til slutt instansen av noden som skal være indeks.
+        return null;
     }
 
     @Override
