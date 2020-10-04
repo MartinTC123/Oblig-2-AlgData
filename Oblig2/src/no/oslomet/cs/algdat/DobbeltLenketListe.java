@@ -232,14 +232,37 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public T fjern(int indeks) {
-        // oppretter en instans av Node som skal være indeks
-        // oppretter en forrige peker og en neste peker av Node
+        Node<T> indeksVerdi; // oppretter en instans av Node som skal være indeks
+        Node<T> nest, forr;// oppretter en forrige peker og en neste peker av Node
 
-        // bruker en try og catch for å kontrollere indeks
-        // i try har jeg if, else if og else for å fjerne hode, hale og andre elementer.
-
-        // returnerer til slutt instansen av noden som skal være indeks.
-        return null;
+        try { // bruker en try og catch for å kontrollere indeks
+            indeksKontroll(indeks, false); // sjekker indeks
+            indeksVerdi = finnNode(indeks);
+            if (antall >= 1 && indeks == 0){ // for å fjerne hode
+                indeksVerdi = hode;
+                nest = indeksVerdi.neste;
+                nest.forrige = null;
+                hode = nest;
+                antall--;
+            }
+            else if (indeks == antall -1 && antall >= 1){ // for å fjerne hale
+                indeksVerdi = hale;
+                forr = indeksVerdi.forrige;
+                indeksVerdi.neste = null;
+                hale = forr;
+                antall--;
+            }
+            else { // for å fjerne andre elementer
+                forr = indeksVerdi.forrige;
+                nest = indeksVerdi.neste;
+                forr.neste = nest;
+                nest.forrige = forr;
+                antall--;
+            }
+        }catch (IndexOutOfBoundsException error){
+            throw error;
+        }
+        return indeksVerdi.verdi; // returnerer til slutt instansen av noden som skal ha verdien til indeks.
     }
 
     @Override
