@@ -70,7 +70,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                hale = node;
                antall++; //øker antall verdier som != Null
            }
-           if (forrige!= null && forrige!=node){
+           if (forrige!= null && forrige!=node){ //Oppretter neste peker for node og passer på at vi ikke får en gjentakene peker på siste noden
                forrige.neste = node;
            }
            forrige=node;
@@ -244,8 +244,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public String toString() {
         StringBuilder returner =new StringBuilder();
         if (tom()){ //Om arrayet er tomt, returner []
-            returner.append("[]");
-            return returner.toString();
+            return "[]";
         }
         returner.append("[");
 
@@ -269,9 +268,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
         returner.append("[");
 
-        Node<T> t = hale;           //Starter med aa appende verdien til hodet
+        Node<T> t = hale;           //Starter med aa appende verdien til alen
         returner.append(t.verdi);
-        t=t.forrige;                  // noden blir satt til neste
+        t=t.forrige;                  // noden blir satt til forrige
 
         while(t!=null) {            //Dersom det er flere elementer som ikke er null, fortsett
             returner.append(", ").append(t.verdi);
