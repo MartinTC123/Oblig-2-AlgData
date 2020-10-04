@@ -254,7 +254,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         try { // bruker en try og catch for å kontrollere indeks
             indeksKontroll(indeks, false); // sjekker indeks
-            indeksVerdi = finnNode(indeks);
+            indeksVerdi = finnNode(indeks); 
             if (antall >= 1 && indeks == 0){ // for å fjerne hode
                 indeksVerdi = hode;
                 nest = indeksVerdi.neste;
@@ -263,11 +263,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall--;
                 endringer++;
             }
-            else if (indeks == antall -1 && antall > 1){ // for å fjerne hale
+            else if (indeks == antall -1 && antall >= 1){ // for å fjerne hale
                 indeksVerdi = hale;
                 forr = indeksVerdi.forrige;
                 forr.neste = null;
-                hale = indeksVerdi;
+                hale = forr;
                 antall--;
                 endringer++;
             }
