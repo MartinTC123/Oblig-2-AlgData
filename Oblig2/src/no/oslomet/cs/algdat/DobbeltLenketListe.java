@@ -244,7 +244,17 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        throw new UnsupportedOperationException();
+        // oppretter en boolean sjekk som enten returnerer true/false
+        // oppretter en instans av node som = hode (indeksVerdi).
+        // oppretter to pekere av Node, forr og nest
+
+        // for å løse oppgaven tenker jeg å bruke en for-løkke som skal løpe gjennom antall.
+        // inne i løkken tenker jeg å oppdatere indeksVerdi (instans av node) ved å sette den lik neste.
+        // for å finne T verdi skal jeg bruke en if setning.
+        // dersom T verdi finnes i listen skal denne fjernes ved hjelp av pekerne og sjekk = true.
+
+        // til slutt skal boolean sjekk returneres.
+        throw  new UnsupportedOperationException();
     }
 
     @Override
