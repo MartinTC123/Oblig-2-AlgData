@@ -244,17 +244,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        // oppretter en boolean sjekk som enten returnerer true/false
-        // oppretter en instans av node som = hode (indeksVerdi).
-        // oppretter to pekere av Node, forr og nest
+        boolean sjekk= false; // oppretter en boolean sjekk som enten returnerer true/false
+        Node<T> indeksVerdi= hode; // oppretter en instans av node som = hode (indeksVerdi).
+        Node<T> forr, nest; // oppretter to pekere av Node, forr og nest
 
-        // for å løse oppgaven tenker jeg å bruke en for-løkke som skal løpe gjennom antall.
-        // inne i løkken tenker jeg å oppdatere indeksVerdi (instans av node) ved å sette den lik neste.
-        // for å finne T verdi skal jeg bruke en if setning.
-        // dersom T verdi finnes i listen skal denne fjernes ved hjelp av pekerne og sjekk = true.
-
-        // til slutt skal boolean sjekk returneres.
-        throw  new UnsupportedOperationException();
+        for(int i = 0; i < antall; i++) { // for å løse oppgaven tenker jeg å bruke en for-løkke som skal løpe gjennom antall.
+            if (indeksVerdi.equals(verdi)){ // for å finne T verdi skal jeg bruke en if setning.
+                indeksVerdi.verdi = verdi;
+                forr = indeksVerdi.forrige;
+                nest = indeksVerdi.neste;
+                nest.forrige = forr; // dersom T verdi finnes i listen skal denne fjernes ved hjelp av pekerne.
+                forr.neste = nest;
+                antall--;
+                endringer++;
+                sjekk = true;
+            }
+            indeksVerdi = indeksVerdi.neste; // inne i løkken tenker jeg å oppdatere indeksVerdi (instans av node) ved å sette den lik neste.
+        }
+        return sjekk; // til slutt skal boolean sjekk returneres.
     }
 
     @Override
