@@ -2,7 +2,9 @@ package no.oslomet.cs.algdat;
 
 public class Main {
     public static void main(String [] args){
-
+       DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+            liste.leggInn(0, 4);
+        /*
         String [] s = {"A","B","C","D"};
         DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
         System.out.println(liste.fjern("A"));
