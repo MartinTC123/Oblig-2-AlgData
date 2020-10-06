@@ -371,6 +371,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
+        //returnerer dobbeltlenkelisteIterator
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -400,6 +401,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
+            //En if setning som sjekker om iteratorendringer er lik endringer
+            //Throw ConCurrentModification exception om false
+
+            //så hvis !hasNext() kastes en noSuchElementException
+
+            //Fjernok settes til TRUE
+            //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
+
+
             throw new UnsupportedOperationException();
         }
 
