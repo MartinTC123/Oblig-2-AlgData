@@ -20,6 +20,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     /**
      * Node class
+     *
      * @param <T>
      */
     private static final class Node<T> {
@@ -126,7 +127,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 franode = franode.neste;
                 pointer++;
             }
-        }catch (IndexOutOfBoundsException error){
+        } catch (IndexOutOfBoundsException error) {
             throw error;
         }
         return liste; // til slutt returneres listen.
@@ -143,17 +144,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     @Override
-    public boolean leggInn(T verdi){
-        Objects.requireNonNull(verdi,"Verdien a er Null!");
+    public boolean leggInn(T verdi) {
+        Objects.requireNonNull(verdi, "Verdien a er Null!");
         Node<T> nynode = new Node(verdi);
         antall++;
-        if(hode == null){
+        if (hode == null) {
             hale = nynode;
             hode = nynode;
             hale.forrige = null;
             hode.neste = null;
-        }
-        else{
+        } else {
             hale.neste = nynode;
             nynode.forrige = hale;
             hale = nynode;
@@ -165,24 +165,28 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public void leggInn(int indeks, T verdi) {
         Objects.requireNonNull(verdi, "Ikke tillatt med Nullverdier");
-        indeksKontroll(indeks,true);
+        indeksKontroll(indeks, true);
 
-        if(indeks == antall){ // koden kjøres hvis indeksen er like lang som listen
-            hale = hale.neste = new Node<>(verdi,hale,null); //setter hale lik sin neste siden indeksen tar den gammle hale plassen
-            if (antall == 0 ){ //om indeksen er lik antall og antallet er 0, så settes hale = hode
+        if (indeks == antall) { // koden kjøres hvis indeksen er like lang som listen
+            hale = hale.neste = new Node<>(verdi, hale, null); //setter hale lik sin neste siden indeksen tar den gammle hale plassen
+            if (antall == 0) { //om indeksen er lik antall og antallet er 0, så settes hale = hode
                 hale = hode;
             }
-        }
-        else if(indeks == 0){
-            hode = new Node<>(verdi,null, hode); //om indeksen er 0 settes det som hode.
-        }else{
+        } else if (indeks == 0) {
+            hode = new Node<>(verdi, null, hode); //om indeksen er 0 settes det som hode.
+        } else {
             Node<T> node = hode;
-            for(int i = 1; i <indeks; i++){
-                    node = node.neste;
+            for (int i = 1; i < indeks; i++) {
+                node = node.neste;
             }
+            Node<T> temp = new Node<>(verdi, node, node.neste);
+            node = temp;
+            node.neste = temp;
         }
 
-       // throw new UnsupportedOperationException();
+        antall++;
+        endringer++;
+    // throw new UnsupportedOperationException();
     }
 
     @Override
