@@ -167,21 +167,20 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(verdi, "Ikke tillatt med Nullverdier");
         indeksKontroll(indeks, true);
 
-        if (indeks == antall && indeks != 0) { // koden kjøres hvis indeksen er like lang som listen
-            hale = hale.neste = new Node<>(verdi, hale, null);
-        } else if (indeks == 0) {
-            hode = new Node<>(verdi, null, hode); //om indeksen er 0 settes det som hode.
+        if (indeks == antall) { // koden kjøres hvis indeksen er like lang som listen
+            hale = hale.neste = new Node<>(verdi, hale, null); //setter hale lik sin neste siden indeksen tar den gammle hale plassen
             if (antall == 0) { //om indeksen er lik antall og antallet er 0, så settes hale = hode
                 hale = hode;
             }
-            else hode.neste.forrige = hode;
+        } else if (indeks == 0) {
+            hode = new Node<>(verdi, null, hode); //om indeksen er 0 settes det som hode.
         } else {
             Node<T> node = hode;
             for (int i = 1; i < indeks; i++) {
                 node = node.neste;
             }
             Node<T> temp = new Node<>(verdi, node, node.neste);
-            node.neste.forrige = temp;
+            node = temp;
             node.neste = temp;
         }
 
@@ -189,7 +188,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         endringer++;
     // throw new UnsupportedOperationException();
     }
-
 
     @Override
     public boolean inneholder(T verdi) {
