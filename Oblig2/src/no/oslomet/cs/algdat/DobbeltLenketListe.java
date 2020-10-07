@@ -387,8 +387,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
-        //returnerer dobbeltlenkelisteIterator
+        return new DobbeltLenketListeIterator();      //returnerer dobbeltlenkelisteIterator
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -410,10 +409,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            // kaller på finnNode() med variabelen indeks
-            //setter denne til finnNode sin return
-            //setter fjernOK til false og iteratorendringer til endringer som i konstruktøren
-            throw new UnsupportedOperationException();
+            denne = finnNode(indeks);                       // kaller på finnNode() med variabelen indeks og setter denne til finnNode sin return
+            fjernOK=false;
+            iteratorendringer=endringer;                    //setter fjernOK til false og iteratorendringer til endringer som i konstruktøren
         }
 
         @Override
@@ -423,16 +421,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
-            //En if setning som sjekker om iteratorendringer er lik endringer
-            //Throw ConCurrentModification exception om false
-
-            //så hvis !hasNext() kastes en noSuchElementException
-
-            //Fjernok settes til TRUE
-            //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
-
-
-            throw new UnsupportedOperationException();
+            if (iteratorendringer!=endringer){                          //En if setning som sjekker om iteratorendringer er lik endringer
+                throw new ConcurrentModificationException();            //Throw ConCurrentModification exception om false
+            }
+            if (!hasNext()){                                            //saa hvis !hasNext() kastes en noSuchElementException
+                throw new NoSuchElementException();
+            }
+            fjernOK=true;                                               //Fjernok settes til TRUE
+            T retur= denne.verdi;
+            denne.neste = denne;
+            return  retur;                                              //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
         }
 
         @Override
