@@ -392,6 +392,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
+        //Sjekker om indeksen er lovlig ved å kalle på indekskontroll
+        // returnerer instans av iterator ved
         throw new UnsupportedOperationException();
     }
 
@@ -408,6 +410,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks){
+            // kaller på finnNode() med variabelen indeks
+            //setter denne til finnNode sin return
+            //setter fjernOK til false og iteratorendringer til endringer som i konstruktøren
             throw new UnsupportedOperationException();
         }
 
