@@ -252,23 +252,40 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean fjern(T verdi) {
         boolean sjekk= false; // oppretter en boolean sjekk som enten returnerer true/false
-        Node<T> indeksVerdi= hode; // oppretter en instans av node som = hode (indeksVerdi).
+        Node<T> indeksVerdi= hode.neste; // oppretter en instans av node som = hode (indeksVerdi).
         Node<T> forr, nest; // oppretter to pekere av Node, forr og nest
 
-        for(int i = 0; i < antall; i++) { // for å løse oppgaven tenker jeg å bruke en for-løkke som skal løpe gjennom antall.
-            if (indeksVerdi.equals(verdi)){ // for å finne T verdi skal jeg bruke en if setning.
-                indeksVerdi.verdi = verdi;
-                forr = indeksVerdi.forrige;
-                nest = indeksVerdi.neste;
-                nest.forrige = forr; // dersom T verdi finnes i listen skal denne fjernes ved hjelp av pekerne.
-                forr.neste = nest;
-                antall--;
-                endringer++;
-                sjekk = true;
+        while (indeksVerdi != null){
+            if (indeksVerdi.verdi.equals(verdi)){
+                if (indeksVerdi.equals(hode)){
+                    nest = indeksVerdi.neste;
+                    nest.forrige = null;
+                    hode = nest;
+                    antall--;
+                    endringer++;
+                    sjekk = true;
+                }
+                else if (indeksVerdi.equals(hale)){
+                    forr = indeksVerdi.forrige;
+                    forr.neste = null;
+                    hale = forr;
+                    antall--;
+                    endringer++;
+                    sjekk = true;
+                }
+                else {
+                    forr = indeksVerdi.forrige;
+                    nest = indeksVerdi.neste;
+                    forr.neste = nest;
+                    nest.forrige = forr;
+                    antall--;
+                    endringer++;
+                    sjekk = true;
+                }
             }
-            indeksVerdi = indeksVerdi.neste; // inne i løkken tenker jeg å oppdatere indeksVerdi (instans av node) ved å sette den lik neste.
+            indeksVerdi = indeksVerdi.neste;
         }
-        return sjekk; // til slutt skal boolean sjekk returneres.
+        return sjekk;
     }
 
     @Override
@@ -371,6 +388,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
+        //returnerer dobbeltlenkelisteIterator
     }
 
     public Iterator<T> iterator(int indeks) {
@@ -400,14 +418,53 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
+            //En if setning som sjekker om iteratorendringer er lik endringer
+            //Throw ConCurrentModification exception om false
+
+            //så hvis !hasNext() kastes en noSuchElementException
+
+            //Fjernok settes til TRUE
+            //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
+
+
             throw new UnsupportedOperationException();
         }
 
         @Override
         public void remove(){
-            throw new UnsupportedOperationException();
-        }
+            Node<T> forr, nest;
+            // Jeg tenker først å kontrollere hindrene i oppgaven.
+            if (iteratorendringer != endringer){
+                throw new ConcurrentModificationException("iteratorendringer != endringer");
+            }
+            // Jeg tenker først å sjekke om endringer og iteratorendringer med en if setning.
+            fjernOK = false;
+            // Setter fjernOk til false.
+            if (antall == 1){
+                hode = null;
+                hale = null;
+            }
+            else if (denne == null){
+                hale = hale.forrige;
+                hale.neste = null;
+            }
+            else if (denne.forrige == hode){
+                denne.forrige = null;
+                denne = hode;
+            }
+            else {
+                forr = denne.forrige;
+                nest = denne.neste;
+                forr.neste = nest;
+                nest.forrige = forr;
+            }
+            // Implementerer tilfeller slik at noden rett til venstre for p skal fjernes.
 
+            antall--;
+            iteratorendringer++;
+            endringer++;
+            // antall reduseres og endringer og iteratorendringer økes.
+        }
     } // class DobbeltLenketListeIterator
 
     public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
