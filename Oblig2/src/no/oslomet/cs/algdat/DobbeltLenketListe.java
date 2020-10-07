@@ -85,7 +85,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (indeks <= antall/2) {// Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
             current = hode;
             for (int i= 0; i < indeks; i++){ // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
-            current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+                if (current!=null) {
+                    current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+                }
             }
         }
         else if(indeks > antall/2){ // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
