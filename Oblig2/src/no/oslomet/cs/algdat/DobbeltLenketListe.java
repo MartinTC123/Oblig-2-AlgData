@@ -148,6 +148,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(verdi, "Verdien a er Null!");
         Node<T> nynode = new Node(verdi);
         antall++;
+        endringer++;
         if (hode == null) {
             hale = nynode;
             hode = nynode;
@@ -186,7 +187,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             node.neste.forrige = temp; // peker igjen paa node fra tidligere, med neste.forrige for aa ikke faa feil i peker
             node.neste = temp; // setter nye plassen til temp, altsaa hva den tidligere noden var.
         }
-
         antall++;
         endringer++;
     // throw new UnsupportedOperationException();
@@ -391,7 +391,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     public Iterator<T> iterator(int indeks) {
-        indeksKontroll(indeks,true);                    //Sjekker om indeksen er lovlig ved aa kalle på indekskontroll
+        indeksKontroll(indeks,false);                    //Sjekker om indeksen er lovlig ved aa kalle på indekskontroll
         return new DobbeltLenketListeIterator(indeks);          // returnerer instans av iterator
     }
 
@@ -428,7 +428,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             }
             fjernOK=true;                                               //Fjernok settes til TRUE
             T retur= denne.verdi;
-            denne.neste = denne;
+            denne = denne.neste;
             return  retur;                                              //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
         }
 

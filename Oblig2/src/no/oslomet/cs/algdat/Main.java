@@ -1,15 +1,17 @@
 package no.oslomet.cs.algdat;
 
+import java.util.Iterator;
+
 public class Main {
     public static void main(String [] args){
        //DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
          //   liste.leggInn(0, 4);
 
         String [] s = {"A","B","C","D"};
-        DobbeltLenketListe<String> liste = new DobbeltLenketListe<>(s);
-        //System.out.println(liste.fjern("E"));
-        //System.out.print(liste.toString());
-        //System.out.print(liste.omvendtString());
+        DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
+        Iterator<Integer> i = liste.iterator();
+        i.next();
+
 
 /*
         Character[] c = { 'A' , 'B' , 'C' , 'D' , 'E' , 'F' , 'G' , 'H' , 'I' , 'J' ,};
