@@ -167,24 +167,24 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(verdi, "Ikke tillatt med Nullverdier");
         indeksKontroll(indeks, true);
 
-        if (indeks == antall && indeks != 0) { // koden kjøres hvis indeksen er like lang som listen
+        if (indeks == antall && indeks != 0) { // koden kjoeres hvis indeksen er like lang som listen
             hale = hale.neste = new Node<>(verdi, hale, null); //setter hale lik sin neste siden indeksen tar den gammle hale plassen
         } else if (indeks == 0) {
             hode = new Node<>(verdi, null, hode); //om indeksen er 0 settes det som hode.
-            if (antall == 0){
+            if (antall == 0){ //setter om antall = 0 og indeks = 0 saa er hale =hode, siden det ikke er flere indekser.
                 hale = hode;
             }
             else{
-                hode.neste.forrige = hode;
+                hode.neste.forrige = hode; // maa peke paa hode via aa bruke neste sin forrige for å ikke få nullpeker.
             }
         } else {
             Node<T> node = hode;
-            for (int i = 1; i < indeks; i++) {
-                node = node.neste;
+            for (int i = 1; i < indeks; i++) { //loeper gjennom for loekke for aa finne den designerte indeksen til node.
+                node = node.neste; //selvforklart, setter node = node.neste
             }
-            Node<T> temp = new Node<>(verdi, node, node.neste);
-            node.neste.forrige = temp;
-            node.neste = temp;
+            Node<T> temp = new Node<>(verdi, node, node.neste); //oppretter en hjelpenode
+            node.neste.forrige = temp; // peker igjen paa node fra tidligere, med neste.forrige for aa ikke faa feil i peker
+            node.neste = temp; // setter nye plassen til temp, altsaa hva den tidligere noden var.
         }
 
         antall++;
