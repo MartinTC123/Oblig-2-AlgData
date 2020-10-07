@@ -434,29 +434,33 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public void remove(){
-            Node<T> forr, nest;
+            Node<T> forr, nest; // forrige og neste node som brukes i tilfelle 4
             // Jeg tenker først å kontrollere hindrene i oppgaven.
             if (iteratorendringer != endringer){
                 throw new ConcurrentModificationException("iteratorendringer != endringer");
             }
+            else if (antall == 0){
+                throw new IllegalStateException("Kan ikke fjerne noe når listen er tom!");
+            }
             // Jeg tenker først å sjekke om endringer og iteratorendringer med en if setning.
             fjernOK = false;
             // Setter fjernOk til false.
-            if (antall == 1){
+
+            if (antall == 1){ // tilfelle 1: hode og hale nulles ut.
                 hode = null;
                 hale = null;
             }
-            else if (denne == null){
+            else if (denne == null){ // tilfelle 2: den siste fjernes og halen oppdateres.
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if (denne.forrige == hode){
+            else if (denne.forrige == hode){ // tilfelle 3: den første fjernes og hode oppdateres.
                 denne.forrige = null;
                 denne = hode;
             }
-            else {
-                forr = denne.forrige;
-                nest = denne.neste;
+            else { // tilfelle 4: en node i listen fjernes og pekerne på hver side oppdateres.
+                forr = denne.forrige.forrige;
+                nest = denne;
                 forr.neste = nest;
                 nest.forrige = forr;
             }
