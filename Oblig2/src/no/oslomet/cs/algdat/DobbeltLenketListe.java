@@ -291,7 +291,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> nest, forr;// oppretter en forrige peker og en neste peker av Node
 
         try { // bruker en try og catch for å kontrollere indeks
-            indeksKontroll(indeks, false); // sjekker indeks
+            indeksKontroll (indeks, false); // sjekker indeks
             indeksVerdi = finnNode(indeks); 
             if (antall >= 1 && indeks == 0){ // for å fjerne hode
                 indeksVerdi = hode;
