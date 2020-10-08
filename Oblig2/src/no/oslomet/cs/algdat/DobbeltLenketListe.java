@@ -249,40 +249,51 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean fjern(T verdi) {
         boolean sjekk= false; // oppretter en boolean sjekk som enten returnerer true/false
-        Node<T> indeksVerdi= hode.neste; // oppretter en instans av node som = hode (indeksVerdi).
+        Node<T> indeksVerdi= hode; // oppretter en instans av node som = hode (indeksVerdi).
         Node<T> forr, nest; // oppretter to pekere av Node, forr og nest
 
         while (indeksVerdi != null){
             if(indeksVerdi.verdi.equals(verdi)){
-                if (indeksVerdi.equals(hode)){
-                    nest = indeksVerdi.neste;
-                    nest.forrige = null;
-                    hode = nest;
+                if(antall==1){
+                    hode=null;
+                    hale=null;
                     antall--;
                     endringer++;
-                    sjekk = true;
+                    return true;
+                }
+                if (indeksVerdi.equals(hode)){
+                    nest=indeksVerdi.neste;
+                    indeksVerdi.neste=null;
+                    nest.forrige=null;
+                    hode=nest;
+                    antall--;
+                    endringer++;
+                    return true;
                 }
                 else if (indeksVerdi.equals(hale)){
-                    forr = indeksVerdi.forrige;
-                    forr.neste = null;
-                    hale = forr;
+                    forr=indeksVerdi.forrige;
+                    indeksVerdi.forrige=null;
+                    forr.neste=null;
+                    hale=forr;
                     antall--;
                     endringer++;
-                    sjekk = true;
+                    return true;
                 }
                 else {
-                    forr = indeksVerdi.forrige;
-                    nest = indeksVerdi.neste;
-                    forr.neste = nest;
-                    nest.forrige = forr;
+                    forr=indeksVerdi.forrige;
+                    nest=indeksVerdi.neste;
+                    indeksVerdi.neste=null;
+                    indeksVerdi.forrige=null;
+                    forr.neste=nest;
+                    nest.forrige=forr;
                     antall--;
                     endringer++;
-                    sjekk = true;
+                    return true;
                 }
             }
             indeksVerdi = indeksVerdi.neste;
         }
-        return sjekk;
+        return false;
     }
 
     @Override
@@ -292,8 +303,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         try { // bruker en try og catch for å kontrollere indeks
             indeksKontroll (indeks, false); // sjekker indeks
-            indeksVerdi = finnNode(indeks); 
-            if (antall >= 1 && indeks == 0){ // for å fjerne hode
+            indeksVerdi = finnNode(indeks);
+            if (antall==1){
+                indeksVerdi=hode;
+                hode=null;
+                hale=null;
+                antall--;
+                endringer++;
+            }
+            else if (antall >= 1 && indeks == 0){ // for å fjerne hode
                 indeksVerdi = hode;
                 nest = indeksVerdi.neste;
                 nest.forrige = null;
@@ -329,7 +347,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             return;
         }
         Node<T> p,q = hode;      // oppretter hjelpenoder for å nullstille
-
         while(q!=null){         // loeper gjennom nodene og nullstiller
             p=q.neste;          //setter foerst hjelpenode p til neste node
             q.forrige=null;
@@ -473,10 +490,8 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     } // class DobbeltLenketListeIterator
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        if (liste.tom()) {
-            return;
-            for (int i = 1; i <liste.)
-        }
+        throw new UnsupportedOperationException();
+
 
     }
 } // class DobbeltLenketListe
