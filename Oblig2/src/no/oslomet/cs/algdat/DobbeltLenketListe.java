@@ -441,7 +441,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             if (iteratorendringer != endringer){
                 throw new ConcurrentModificationException("iteratorendringer != endringer");
             }
-            if (antall == 0){
+            if (antall == 0 || !fjernOK){
                 throw new IllegalStateException("Kan ikke fjerne noe når listen er tom!");
             }
             // Jeg tenker først å sjekke om endringer og iteratorendringer med en if setning.
@@ -457,10 +457,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale.neste = null;
             }
             else if (denne.forrige == hode){ // tilfelle 3: den første fjernes og hode oppdateres.
-                denne.forrige = null;
-                hode = denne;
-            }
-            else if (denne == hode.neste){ // dette tilfelle fikser at man ikke får et NullPointerException i tilfelle 4
                 denne.forrige = null;
                 hode = denne;
             }
