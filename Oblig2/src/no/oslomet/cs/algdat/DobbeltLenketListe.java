@@ -5,15 +5,10 @@ package no.oslomet.cs.algdat;
 
 
 import javax.swing.*;
-import java.util.Comparator;
-import java.util.ConcurrentModificationException;
-import java.util.NoSuchElementException;
-import java.util.StringJoiner;
+import java.util.*;
 
-import java.util.Iterator;
-import java.util.Objects;
 import java.util.function.Predicate;
-
+import java.util.stream.Collectors;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -385,6 +380,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         return returner.toString();
     }
 
+
     @Override
     public Iterator<T> iterator() {
         throw new UnsupportedOperationException();
@@ -467,10 +463,13 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
     } // class DobbeltLenketListeIterator
 
-    public static <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
-    }
+    public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
+        if (liste.tom()) {
+            return;
+            for (int i = 1; i <liste.)
+        }
 
+    }
 } // class DobbeltLenketListe
 
 
