@@ -475,7 +475,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         if (liste.tom()) {
             return;
-            for (int i = 1; i <liste.)
+        }
+        int nodeindeks;
+        int nestenodeindeks;
+        for (int i = 0; i <liste.antall()-1; i++){
+            for (int j =1; j <liste.antall();j++){
+                nodeindeks = i;
+                nestenodeindeks = j;
+                if (liste.hent(i) != null)
+            }
         }
 
     }
