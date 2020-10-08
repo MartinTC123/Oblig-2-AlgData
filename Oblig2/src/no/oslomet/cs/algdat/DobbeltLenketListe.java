@@ -80,7 +80,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (indeks <= antall/2) {// Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
             current = hode;
             for (int i= 0; i < indeks; i++){ // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
-            current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+                if (current!=null) {
+                    current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+                }
             }
         }
         else if(indeks > antall/2){ // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
@@ -143,6 +145,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Objects.requireNonNull(verdi, "Verdien a er Null!");
         Node<T> nynode = new Node(verdi);
         antall++;
+        endringer++;
         if (hode == null) {
             hale = nynode;
             hode = nynode;
@@ -181,7 +184,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             node.neste.forrige = temp; // peker igjen paa node fra tidligere, med neste.forrige for aa ikke faa feil i peker
             node.neste = temp; // setter nye plassen til temp, altsaa hva den tidligere noden var.
         }
-
         antall++;
         endringer++;
     // throw new UnsupportedOperationException();
@@ -383,12 +385,12 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public Iterator<T> iterator() {
-        throw new UnsupportedOperationException();
-        //returnerer dobbeltlenkelisteIterator
+        return new DobbeltLenketListeIterator();      //returnerer dobbeltlenkelisteIterator
     }
 
     public Iterator<T> iterator(int indeks) {
-        throw new UnsupportedOperationException();
+        indeksKontroll(indeks,false);                    //Sjekker om indeksen er lovlig ved aa kalle på indekskontroll
+        return new DobbeltLenketListeIterator(indeks);          // returnerer instans av iterator
     }
 
     private class DobbeltLenketListeIterator implements Iterator<T>
@@ -404,7 +406,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }
 
         private DobbeltLenketListeIterator(int indeks){
-            throw new UnsupportedOperationException();
+            denne = finnNode(indeks);                       // kaller på finnNode() med variabelen indeks og setter denne til finnNode sin return
+            fjernOK=false;
+            iteratorendringer=endringer;                    //setter fjernOK til false og iteratorendringer til endringer som i konstruktoeren
         }
 
         @Override
@@ -414,43 +418,47 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         @Override
         public T next(){
-            //En if setning som sjekker om iteratorendringer er lik endringer
-            //Throw ConCurrentModification exception om false
-
-            //så hvis !hasNext() kastes en noSuchElementException
-
-            //Fjernok settes til TRUE
-            //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
-
-
-            throw new UnsupportedOperationException();
+            if (iteratorendringer!=endringer){                          //En if setning som sjekker om iteratorendringer er lik endringer
+                throw new ConcurrentModificationException();            //Throw ConCurrentModification exception om false
+            }
+            if (!hasNext()){                                            //saa hvis !hasNext() kastes en noSuchElementException
+                throw new NoSuchElementException();
+            }
+            fjernOK=true;                                               //Fjernok settes til TRUE
+            T retur= denne.verdi;
+            denne = denne.neste;
+            return  retur;                                              //oppretter node der denne.verdi blir lagt inn og denne.neste blir denne
         }
 
         @Override
         public void remove(){
-            Node<T> forr, nest;
+            Node<T> forr, nest; // forrige og neste node som brukes i tilfelle 4
             // Jeg tenker først å kontrollere hindrene i oppgaven.
             if (iteratorendringer != endringer){
                 throw new ConcurrentModificationException("iteratorendringer != endringer");
             }
+            if (antall == 0 || !fjernOK){
+                throw new IllegalStateException("Kan ikke fjerne noe når listen er tom!");
+            }
             // Jeg tenker først å sjekke om endringer og iteratorendringer med en if setning.
             fjernOK = false;
             // Setter fjernOk til false.
-            if (antall == 1){
+
+            if (antall == 1){ // tilfelle 1: hode og hale nulles ut.
                 hode = null;
                 hale = null;
             }
-            else if (denne == null){
+            else if (denne == null){ // tilfelle 2: den siste fjernes og halen oppdateres.
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if (denne.forrige == hode){
+            else if (denne.forrige == hode){ // tilfelle 3: den første fjernes og hode oppdateres.
                 denne.forrige = null;
-                denne = hode;
+                hode = denne;
             }
-            else {
-                forr = denne.forrige;
-                nest = denne.neste;
+            else { // tilfelle 4: en node i listen fjernes og pekerne på hver side oppdateres.
+                forr = denne.forrige.forrige;
+                nest = denne;
                 forr.neste = nest;
                 nest.forrige = forr;
             }
@@ -461,6 +469,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             endringer++;
             // antall reduseres og endringer og iteratorendringer økes.
         }
+
     } // class DobbeltLenketListeIterator
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
