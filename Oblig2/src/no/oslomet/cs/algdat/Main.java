@@ -7,10 +7,13 @@ public class Main {
        //DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
          //   liste.leggInn(0, 4);
 
+        /*
         String [] s = {"A","B","C","D"};
         DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
         Iterator<Integer> i = liste.iterator();
         i.next();
+
+         */
 
 
 /*
@@ -21,5 +24,11 @@ public class Main {
         System. out .println(liste.subliste(8,liste.antall()));  // [I, J]
 
          */
+
+
+        DobbeltLenketListe<String> liste1 =
+                new  DobbeltLenketListe<>( new  String[]
+                        { "Birger" , "Lars" , "Anders" , "Bodil" , "Kari" , "Per" , "Berit" }); liste1.fjernHvis(navn -> navn.charAt(0) ==  'B' );  // fjerner navn som starter med B System. out .println(liste +  "   "  + liste.omvendtString());
+        // Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
     }
 }
