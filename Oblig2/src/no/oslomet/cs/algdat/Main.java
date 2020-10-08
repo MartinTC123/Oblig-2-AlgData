@@ -4,6 +4,12 @@ import java.util.Iterator;
 
 public class Main {
     public static void main(String [] args){
+        DobbeltLenketListe<String>liste = new DobbeltLenketListe<>();
+        liste.leggInn("A");
+
+        liste.fjern(0);
+
+
        //DobbeltLenketListe<Integer> liste = new DobbeltLenketListe<>();
          //   liste.leggInn(0, 4);
 
@@ -25,10 +31,7 @@ public class Main {
 
          */
 
-
-        DobbeltLenketListe<String> liste1 =
-                new  DobbeltLenketListe<>( new  String[]
-                        { "Birger" , "Lars" , "Anders" , "Bodil" , "Kari" , "Per" , "Berit" }); liste1.fjernHvis(navn -> navn.charAt(0) ==  'B' );  // fjerner navn som starter med B System. out .println(liste +  "   "  + liste.omvendtString());
+// fjerner navn som starter med B System. out .println(liste +  "   "  + liste.omvendtString());
         // Utskrift: [Lars, Anders, Kari, Per] [Per, Kari, Anders, Lars]
     }
 }
