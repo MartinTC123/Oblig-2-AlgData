@@ -253,7 +253,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> forr, nest; // oppretter to pekere av Node, forr og nest
 
         while (indeksVerdi != null){
-            if (indeksVerdi.verdi.equals(verdi)){
+            if(indeksVerdi.verdi.equals(verdi)){
                 if (indeksVerdi.equals(hode)){
                     nest = indeksVerdi.neste;
                     nest.forrige = null;
