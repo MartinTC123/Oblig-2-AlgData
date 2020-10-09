@@ -26,6 +26,12 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Elias  (Git: Eliasskogi har hatt hovedansvar for oppgave 1, 5 og 10. 
 * **Ettersom vi har hatt litt utfordringer har vi hjulpet hverandre i løpet av arbeidsprossesen og sett på hverandre oppgaver. Se commitmeldinger for nærmere beskrivelse**
 
+# Warning som ikke er håndtert
+* **Metoden vil kaste unntak når parameter ikke er null**: dette er fordi vi bruker en objects.requireNonNull i metoden
+* **Caught exception blir umiddelbart kastet på nytt**: dette skjer fordi testklassene kaster unntak den får under testing. Kan heller ikke endre dette i testklassene
+* **Rå type av parameterklassen Node**: Her oppretter vi noden slik for å få brukt verdiene ved senere anledning
+
+
 # Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
 
 * Oppgave 1: 

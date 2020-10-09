@@ -43,13 +43,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public DobbeltLenketListe(T[] a) {
        Objects.requireNonNull(a,"Tabellen a er Null!"); //kaster exception om tabellen er tom eller bare "Null"
-       int nullverdi = 0; // initialiserer nullverditeller
         Node <T> node=null;
         Node <T> forrige = null;
 
        for (T t : a){ //går gjennom listen
            if(t == null){ // om verdien paa indeksen er == null oekes null verditelleren
-                nullverdi++;
            }
            else if (tom()){ //om listen er tom og verdien ikke er null oppdateres foerste verdi
                node = new Node<>(t,hode,null);
@@ -187,12 +185,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
         boolean sjekk; // oppretter en boolean sjekk som skal enten returnere true eller false.
-        if (indeksTil(verdi) != -1) {// her tenker jeg aa bruke en if setning som sammenligner verdi med -1.
-            sjekk = true; // dersom verdien != -1 så skal sjekk returnere true.
-        }
-        else {
-            sjekk = false;
-        }
+        sjekk = indeksTil(verdi) != -1; // dersom verdien != -1 så skal sjekk returnere true.
         return sjekk;
     }
 
