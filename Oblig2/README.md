@@ -47,8 +47,8 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
     forrige og neste pekere. I fjern(int indeks) blir indeksVerdi brukt for å finne verdien i indeks. I fjern(T verdi) blir 
     indeksVerdi brukt for å sammenligne nodene i listen med T verdi. I begge metoder bruker jeg if og else if setninger
     for de ulike tilfellene (om indeks er hode, hale eller en node i listen). I if og else if setningene fjernes noden 
-    ved hjelp av forr og nest pekerne. i fjern(int indeks) returneres verdien som blir fjernet og i fjern(T verdi) returneres
-    true eller false. 
+    ved hjelp av forr og nest pekerne. I fjern(T verdi) kaller jeg på fjern(indeks) for å fjerne hode og hale. 
+    I fjern(int indeks) returneres verdien som blir fjernet og i fjern(T verdi) returneres true eller false. 
 * Oppgave 7:
 * Oppgave 8:
 * Oppgave 9:
