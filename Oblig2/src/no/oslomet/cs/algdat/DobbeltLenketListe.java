@@ -485,9 +485,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         T foersteverdi;  // oppretter 2x verdier av typen T for aa bruke compare senere.
         T andreverdi;
-        int foersteindex; //oppretter naaverende indeks og neste sin indeks
-        int andreindex;
-
 
             for(int i = 0; i < liste.antall()-1; i++) {
                 for(int j = i+1; j <liste.antall(); j++) { // bruker dobbel for loekke for aa loepe gjennom hele listen

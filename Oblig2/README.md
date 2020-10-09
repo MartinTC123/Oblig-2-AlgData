@@ -14,6 +14,7 @@ Se oblig-tekst for alle krav. Oppgaver som ikke oppfyller følgende vil ikke få
 # Arbeidsfordeling
 
 Oppgaven er levert av følgende studenter:
+* Martin Thomas M. Candor, s346201, s346201@oslomet.no
 * Magnus Andreas Holmen, s344245, s344245@oslomet.no
 * ...
 
