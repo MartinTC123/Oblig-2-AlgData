@@ -338,6 +338,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         }catch (IndexOutOfBoundsException error){
             throw error;
         }
+        
         return indeksVerdi.verdi; // returnerer til slutt instansen av noden som skal ha verdien til indeks.
     }
 
@@ -490,8 +491,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     } // class DobbeltLenketListeIterator
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
-        throw new UnsupportedOperationException();
-
+        if (liste.tom()) {
+            return;
+        }
+        Iterator<T> iterator = liste.iterator();
+        T min = iterator.next();
+        //Finner kun minimumsverdi
+        while (iterator.hasNext()){
+            T verdi = iterator.next();
+            if (c.compare(verdi, min) < 0) min = verdi;
+        }
 
     }
 } // class DobbeltLenketListe
