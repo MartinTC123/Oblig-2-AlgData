@@ -476,20 +476,34 @@ public class DobbeltLenketListe<T> implements Liste<T> {
             endringer++;
             // antall reduseres og endringer og iteratorendringer økes.
         }
-
     } // class DobbeltLenketListeIterator
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         if (liste.tom()) {
             return;
         }
-        Iterator<T> iterator = liste.iterator();
-        T min = iterator.next();
-        //Finner kun minimumsverdi
-        while (iterator.hasNext()){
-            T verdi = iterator.next();
-            if (c.compare(verdi, min) < 0) min = verdi;
-        }
+
+        T foersteverdi;  // oppretter 2x verdier av typen T for aa bruke compareTo senere.
+        T andreverdi;
+        int foersteindex; //oppretter naaverende indeks og neste sin indeks
+        int andreindex;
+
+
+
+            for(int i = 0; i < liste.antall()-1; i++) {
+                for(int j = i+1; j <liste.antall(); j++) {
+                    if(liste.hent(j) != null && liste.hent(i) != null) {
+                        foersteverdi = liste.hent(i);
+                        andreverdi = liste.hent(j);
+
+                        if (c.compare(foersteverdi,andreverdi) > 0){
+                            liste.oppdater(j,foersteverdi);
+                            liste.oppdater(i,andreverdi);
+                        }
+                    }
+                }
+            }
+
 
     }
 } // class DobbeltLenketListe
