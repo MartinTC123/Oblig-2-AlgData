@@ -480,25 +480,23 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     public static  <T> void sorter(Liste<T> liste, Comparator<? super T> c) {
         if (liste.tom()) {
-            return;
+            return; // ikke vits aa sortere en tom liste, returnerer bare derfor om listen er tom
         }
 
-        T foersteverdi;  // oppretter 2x verdier av typen T for aa bruke compareTo senere.
+        T foersteverdi;  // oppretter 2x verdier av typen T for aa bruke compare senere.
         T andreverdi;
         int foersteindex; //oppretter naaverende indeks og neste sin indeks
         int andreindex;
 
 
-
             for(int i = 0; i < liste.antall()-1; i++) {
-                for(int j = i+1; j <liste.antall(); j++) {
-                    if(liste.hent(j) != null && liste.hent(i) != null) {
-                        foersteverdi = liste.hent(i);
+                for(int j = i+1; j <liste.antall(); j++) { // bruker dobbel for loekke for aa loepe gjennom hele listen
+                    if(liste.hent(j) != null && liste.hent(i) != null) { // saa lenge de ikke er null sa vil setningene under bli kjoert
+                        foersteverdi = liste.hent(i); // setter verdiene lik verdiene paa indexene ved hjelp av tidligere .hent metode
                         andreverdi = liste.hent(j);
-
-                        if (c.compare(foersteverdi,andreverdi) > 0){
-                            liste.oppdater(j,foersteverdi);
-                            liste.oppdater(i,andreverdi);
+                        if (c.compare(foersteverdi,andreverdi) > 0){ //bruker compare til aa sammenligne verdiene, er verdien = 0
+                            liste.oppdater(j,foersteverdi);        //  -eller mindre er andreverdi stoerre enn foerste
+                            liste.oppdater(i,andreverdi); // maa oppdatere listen, setter verdien paa indeks j til foerste og i til andre, siden foersteverdi > andreverdi.
                         }
                     }
                 }
