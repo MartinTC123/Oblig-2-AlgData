@@ -26,7 +26,7 @@ I oppgaven har vi hatt følgende arbeidsfordeling:
 * Elias  (Git: Eliasskogi har hatt hovedansvar for oppgave 1, 5 og 10. 
 * **Ettersom vi har hatt litt utfordringer har vi hjulpet hverandre i løpet av arbeidsprossesen og sett på hverandre oppgaver. Se commitmeldinger for nærmere beskrivelse**
 
-# Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave)
+# Beskrivelse av oppgaveløsning (maks 5 linjer per oppgave) 
 
 * Oppgave 1: Løste ved å implementere..
 * Oppgave 2: 
