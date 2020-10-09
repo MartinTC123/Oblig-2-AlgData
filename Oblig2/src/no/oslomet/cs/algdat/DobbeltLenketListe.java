@@ -3,12 +3,7 @@ package no.oslomet.cs.algdat;
 
 ////////////////// class DobbeltLenketListe //////////////////////////////
 
-
-import javax.swing.*;
 import java.util.*;
-
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 
 public class DobbeltLenketListe<T> implements Liste<T> {
@@ -34,7 +29,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     }
 
     // instansvariabler
-    private Node<T> hode;          // peker til den første i listen
+    private Node<T> hode;          // peker til den foerste i listen
     private Node<T> hale;          // peker til den siste i listen
     private int antall;            // antall noder i listen
     private int endringer;         // antall endringer i listen
@@ -79,22 +74,22 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
         if (indeks <= antall/2) {// Bruker en if (indeks <= antall/2) slik at current starter på node Hode.
             current = hode;
-            for (int i= 0; i < indeks; i++){ // Inne i if setningen bruker jeg en for-løkke som skal iterere seg frem til indeks
+            for (int i= 0; i < indeks; i++){ // Inne i if setningen bruker jeg en for-loekke som skal iterere seg frem til indeks
                 if (current!=null) {
-                    current = current.neste; // inne i for-løkke oppdaterer jeg current ved å bruke current.neste
+                    current = current.neste; // inne i for-loekke oppdaterer jeg current ved å bruke current.neste
                 }
             }
         }
-        else if(indeks > antall/2){ // Dersom indeksen er høyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
+        else if(indeks > antall/2){ // Dersom indeksen er hoeyere enn antall/2 bruker jeg en else if hvor current starter på hale noden.
             current = hale;
-            for (int j= antall - 1; j > indeks; j--){ // Inne i denne for-løkken oppdaterer jeg current ved å bruke current.forrige
+            for (int j= antall - 1; j > indeks; j--){ // Inne i denne for-loekken oppdaterer jeg current ved aa bruke current.forrige
                 current = current.forrige;
             }
         }
         return current;
     }
 
-    private static void fratilKontroll(int antall, int fra, int til){ // brukes for å kontrollere fra og til
+    private static void fratilKontroll(int antall, int fra, int til){ // brukes for aa kontrollere fra og til
         if (fra < 0){
             throw new IndexOutOfBoundsException("fra(" + fra + ") er negativ!");
         }
@@ -110,16 +105,16 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Liste<T> liste= new DobbeltLenketListe<>(); // oppretter en instans liste av Dobbeltlenkeliste
         Node<T> franode= finnNode(0);
         int pointer= 0;
-        try { // bruker en try og catch ved å kontrollere om indeksene i fra og til er lovlige.
+        try { // bruker en try og catch ved aa kontrollere om indeksene i fra og til er lovlige.
             fratilKontroll(antall, fra, til); // for å kontrollere indeksene skal fratilKontroll() kalles på.
-            for (int i = 0; i < antall; i++) { // dersom verdiene er lovlige bruker jeg en for-løkke [fra:til> for å legge inn verdiene i sublisten.
+            for (int i = 0; i < antall; i++) { // dersom verdiene er lovlige bruker jeg en for-loekke [fra:til> for å legge inn verdiene i sublisten.
                 if (fra == pointer) {
                     while (pointer < til) { // intervall [fra:til>
                         liste.leggInn(franode.verdi); // legger inn verdiene i sublisten
-                        franode = franode.neste; // går videre til neste node
-                        pointer++; // pointer øker til den er lik til
+                        franode = franode.neste; // gaar videre til neste node
+                        pointer++; // pointer oeker til den er lik til
                     }
-                    break; // bryter ut av while løkken
+                    break; // bryter ut av while loekken
                 }
                 franode = franode.neste;
                 pointer++;
@@ -192,7 +187,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public boolean inneholder(T verdi) {
         boolean sjekk; // oppretter en boolean sjekk som skal enten returnere true eller false.
-        if (indeksTil(verdi) != -1) {// her tenker jeg å bruke en if setning som sammenligner verdi med -1.
+        if (indeksTil(verdi) != -1) {// her tenker jeg aa bruke en if setning som sammenligner verdi med -1.
             sjekk = true; // dersom verdien != -1 så skal sjekk returnere true.
         }
         else {
@@ -204,7 +199,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public T hent(int indeks) {
         T indeksVerdi; // oppretter en instans av T indeksVerdi;
-        try { // bruker en try og catch for å sjekke indeks med indeksKontroll()
+        try { // bruker en try og catch for aa   sjekke indeks med indeksKontroll()
             indeksKontroll(indeks, false);
             indeksVerdi = finnNode(indeks).verdi; // inne i try kaller jeg på finnNode og setter den lik indeksVerdi
         }catch (IndexOutOfBoundsException error){
@@ -216,9 +211,9 @@ public class DobbeltLenketListe<T> implements Liste<T> {
     @Override
     public int indeksTil(T verdi) {
         Node<T> leteNode= hode;// Oppretter en instans av node (leteNode) som skal bli brukt til å lete etter verdi.
-        for (int i = 0; i < antall; i++) { // bruker en for-løkke for å søke etter verdi.
-            if (leteNode.verdi.equals(verdi)){ // inne i løkken bruker jeg en if setning som skal sammeligne leteNode og verdi
-                return i; // dersom verdiene er like returnerer jeg int i fra løkken.
+        for (int i = 0; i < antall; i++) { // bruker en for-loekke for å søke etter verdi.
+            if (leteNode.verdi.equals(verdi)){ // inne i loekken bruker jeg en if setning som skal sammeligne leteNode og verdi
+                return i; // dersom verdiene er like returnerer jeg int i fra loekken.
             }
             leteNode = leteNode.neste;
         }
@@ -230,15 +225,15 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         T indeksVerdi; // oppretter en instans av T
         Node<T> node= finnNode(indeks);
 
-        if (nyverdi == null) {// bruker en if setning for å kontrollere at nyverdi ikke er null
+        if (nyverdi == null) {// bruker en if setning for aa kontrollere at nyverdi ikke er null
             throw new NullPointerException("Nullverdi er ikke tillat"); // kaster NullPointerException
         }
         else {
-            try { // dersom nyverdi ikke er null så bruker jeg en try og catch for å sjekke indeks med indeksKontroll()
+            try { // dersom nyverdi ikke er null saa bruker jeg en try og catch for å sjekke indeks med indeksKontroll()
                 indeksKontroll(indeks, false);
                 indeksVerdi = node.verdi;
                 node.verdi = nyverdi; // i try oppdaterer jeg verdiene ved å sette indeksVerdi = nyverdi.
-                endringer++; // endringer økes også (endringer++).
+                endringer++; // endringer oekes også (endringer++).
             }catch (IndexOutOfBoundsException error){
                 throw error;
             }
@@ -290,7 +285,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         Node<T> indeksVerdi; // oppretter en instans av Node som skal være indeks
         Node<T> nest, forr;// oppretter en forrige peker og en neste peker av Node
 
-        try { // bruker en try og catch for å kontrollere indeks
+        try { // bruker en try og catch for aa kontrollere indeks
             indeksKontroll (indeks, false); // sjekker indeks
             indeksVerdi = finnNode(indeks);
             if (antall==1){
@@ -300,7 +295,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall--;
                 endringer++;
             }
-            else if (antall >= 1 && indeks == 0){ // for å fjerne hode
+            else if (antall >= 1 && indeks == 0){ // for aa fjerne hode
                 indeksVerdi = hode;
                 nest = indeksVerdi.neste;
                 nest.forrige = null;
@@ -308,7 +303,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall--;
                 endringer++;
             }
-            else if (indeks == antall -1 && antall >= 1){ // for å fjerne hale
+            else if (indeks == antall -1 && antall >= 1){ // for aa fjerne hale
                 indeksVerdi = hale;
                 forr = indeksVerdi.forrige;
                 forr.neste = null;
@@ -316,7 +311,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 antall--;
                 endringer++;
             }
-            else { // for å fjerne andre elementer
+            else { // for aa fjerne andre elementer
                 forr = indeksVerdi.forrige;
                 nest = indeksVerdi.neste;
                 forr.neste = nest;
@@ -336,7 +331,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         if (tom()) { //dersom listen er tom skal den ikke gjoere noe
             return;
         }
-        Node<T> p,q = hode;      // oppretter hjelpenoder for å nullstille
+        Node<T> p,q = hode;      // oppretter hjelpenoder for aa nullstille
         while(q!=null){         // loeper gjennom nodene og nullstiller
             p=q.neste;          //setter foerst hjelpenode p til neste node
             q.forrige=null;
@@ -407,7 +402,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         private int iteratorendringer;
 
         private DobbeltLenketListeIterator(){
-            denne = hode;     // p starter på den første i listen
+            denne = hode;     // p starter paa den første i listen
             fjernOK = false;  // blir sann når next() kalles
             iteratorendringer = endringer;  // teller endringer
         }
@@ -440,14 +435,14 @@ public class DobbeltLenketListe<T> implements Liste<T> {
         @Override
         public void remove(){
             Node<T> forr, nest; // forrige og neste node som brukes i tilfelle 4
-            // Jeg tenker først å kontrollere hindrene i oppgaven.
+            // Jeg tenker først aa kontrollere hindrene i oppgaven.
             if (iteratorendringer != endringer){
                 throw new ConcurrentModificationException("iteratorendringer != endringer");
             }
             if (antall == 0 || !fjernOK){
                 throw new IllegalStateException("Kan ikke fjerne noe når listen er tom!");
             }
-            // Jeg tenker først å sjekke om endringer og iteratorendringer med en if setning.
+            // Jeg tenker først aa sjekke om endringer og iteratorendringer med en if setning.
             fjernOK = false;
             // Setter fjernOk til false.
 
@@ -459,7 +454,7 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                 hale = hale.forrige;
                 hale.neste = null;
             }
-            else if (denne.forrige == hode){ // tilfelle 3: den første fjernes og hode oppdateres.
+            else if (denne.forrige == hode){ // tilfelle 3: den foerste fjernes og hode oppdateres.
                 denne.forrige = null;
                 hode = denne;
             }
