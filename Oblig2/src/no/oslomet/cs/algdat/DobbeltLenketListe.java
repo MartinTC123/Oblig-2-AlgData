@@ -248,7 +248,6 @@ public class DobbeltLenketListe<T> implements Liste<T> {
 
     @Override
     public boolean fjern(T verdi) {
-        boolean sjekk= false; // oppretter en boolean sjekk som enten returnerer true/false
         Node<T> indeksVerdi= hode; // oppretter en instans av node som = hode (indeksVerdi).
         Node<T> forr, nest; // oppretter to pekere av Node, forr og nest
 
@@ -262,21 +261,11 @@ public class DobbeltLenketListe<T> implements Liste<T> {
                     return true;
                 }
                 if (indeksVerdi.equals(hode)){
-                    nest=indeksVerdi.neste;
-                    indeksVerdi.neste=null;
-                    nest.forrige=null;
-                    hode=nest;
-                    antall--;
-                    endringer++;
+                    fjern(0);
                     return true;
                 }
                 else if (indeksVerdi.equals(hale)){
-                    forr=indeksVerdi.forrige;
-                    indeksVerdi.forrige=null;
-                    forr.neste=null;
-                    hale=forr;
-                    antall--;
-                    endringer++;
+                    fjern(antall - 1);
                     return true;
                 }
                 else {
